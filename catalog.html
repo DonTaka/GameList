@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Right!</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="d-flex flex-column vh-100">
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary bg-opacity-25">
+            <div class="container-fluid">
+                <a class="navbar-brand mx-auto" href="index.html">
+                    <img src="img/logo.png" alt="" width="64" style="mix-blend-mode: color-burn;">
+                    <label for="">Legend</label>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="index.html">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="catalog.html">Catalogo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="products.html">Productos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="info.html">Nosotros</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.html">Login</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col text-center my-5">
+                    <h1>Our Catalog</h1>
+                </div>
+            </div>
+            <!-- Cat Start -->
+            <div class="row row-cols-1 row-cols-md-4 g-4 text-center mx-auto shadow-lg" id="catalogo">
+                <div class="col mx-auto">
+                    <div class="card h-100 w-75 mx-auto">
+                        <img src="img/back.jpg" class="card-img-top img-fluid " alt="...">
+                        <div class="card-body">
+                            <p class="card-text">This is a short card.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 w-75 mx-auto">
+                        <img src="img/back.jpg" class="card-img-top img-fluid " alt="...">
+                        <div class="card-body">
+                            <p class="card-text">This is a short card.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 w-75 mx-auto">
+                        <img src="img/back.jpg" class="card-img-top img-fluid " alt="...">
+                        <div class="card-body">
+                            <p class="card-text" id="resultadoUF1">This is a short card.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class=" col">
+                    <div class="card h-100 w-75 mx-auto">
+                        <img src="img/back.jpg" class="card-img-top img-fluid " alt="...">
+                        <div class="card-body">
+                            <p class="card-text" id="resultadoUF2">This is a short card.</p><br>
+                            <input type="text" id="cantidad" class="text-dark text-end">
+                            <button onclick="calcular()" class="btn btn-primary">Click</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Cat End -->
+        </div>
+    </main>
+    <footer class="footer mt-auto py-3 bg-dark bg-opacity-25 ">
+        <div class="container">
+
+            <p>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vitae quas corrupti explicabo eligendi est sit
+                sapiente provident! Recusandae soluta cum, aliquid ipsa, accusantium ullam, praesentium nisi repudiandae
+                nobis dolor minima.
+            </p>
+        </div>
+    </footer>
+    <script src=" js/bootstrap.bundle.js"> </script>
+    <script src="js/jquery-3.7.1.js">
+    </script>
+    <script>
+        function calcular() {
+            $.get("https://mindicador.cl/api",
+                function (data) {
+                    console.log(data.uf.valor)
+                    UF = data.uf.valor;
+                    cantidad = $("#cantidad").val();
+                    console.log(cantidad)
+                    $("#resultadoUF1").text("3 UF's son $" + cantidad * UF + " en pesos chilenos")
+                    $("#resultadoUF2").text("100.000 pesos chilenos son " + (100000 / UF))
+                }
+            );
+        }
+
+        function UFaCLP() {
+
+        }
+
+        function CLPaUF() {
+
+        }
+        valorUF = 0;
+        $(document).ready(function () {
+            $.get("https://api.rawg.io/api/games?key=13477c9d3719415692a314047a845263&genres=action&platform=pc&page=2",
+                function (data) {
+                    $.each(data.results, function (i, item) {
+                        console.log(item)
+                        $("#catalogo").append(
+                            '<div class="col mx-auto">' +
+                            '<div class="card h-100 w-75 mx-auto">' +
+                            '<img src="' + item.background_image +
+                            '" class="card-img-top" alt="Cargando...">' +
+                            '<div class="card-body">' +
+                            '<p class="card-text text-bottom bg-opacity-25">' + item.name +
+                            '</p>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>');
+                    });
+                });
+
+        });
+
+        console.log(valorUF * 3);
+    </script>
+</body>
+
+</html>
